@@ -25,10 +25,10 @@ app.get("/api/hello", function (req, res) {
 });
 
 app.get("/api/:date", function (req, res) {
-    if (req.params.date == null) {
-        res.json({ unix: new Date().getTime(), utc: new Date().toUTCString() })
-    } else if (req.params.date == "Invalid Date") {
+    if (isNaN(Date.parse(req.params.date)) == true) {
         res.json({ error: "Invalid Date" })
+    } else if (req.params.date == null) {
+        res.json({ unix: new Date().getTime(), utc: new Date().toUTCString() })
     } else {
         if (/^\d+$/.test(req.params.date)) {
             res.json({ unix: Number(req.params.date), utc: new Date(+req.params.date).toUTCString() })
