@@ -25,7 +25,7 @@ app.get("/api/hello", function (req, res) {
 });
 
 app.get("/api/:date", function (req, res) {
-    if (req.params.date == null) {
+    if (!req.params.date) {
         res.json({ unix: new Date().getTime(), utc: new Date().toUTCString() })
     } else {
         if (/^\d+$/.test(req.params.date)) {
